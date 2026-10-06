@@ -1,0 +1,7 @@
+spring:
+  datasource:
+    url: ${DATABASE_URL:jdbc:postgresql://localhost:5432/linkledger}
+    username: ${DATABASE_USERNAME:linkledger}
+    password: ${DATABASE_PASSWORD}
+app:
+  api-key: ${APP_API_KEY}

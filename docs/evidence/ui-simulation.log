@@ -1,0 +1,14 @@
+LinkLedger UI simulation (mock DOM/API; no browser or live-server coverage)
+PASS static IDs, accessible references, local assets, safe rendering and no credential persistence
+PASS HTTP 503 problem detail shown and form restored
+PASS unchanged retry preserves UUID idempotency key; repeated submit is ignored
+PASS create sends API key, URL, custom alias and local expiration converted to ISO UTC
+PASS metadata and measured analytics displayed; destination assigned as text
+PASS cancelling confirmation sends no DELETE
+PASS confirmed disable handles HTTP 204 and disables the action
+PASS authorization error includes key guidance and request ID; stale analytics cleared
+PASS clipboard fallback gives manual-copy guidance
+PASS API-key visibility toggles back to password
+PASS non-HTTP destination rejected without an API request
+PASS past expiration rejected without an API request
+RESULT: 12 check groups passed.

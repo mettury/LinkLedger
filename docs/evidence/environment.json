@@ -1,0 +1,17 @@
+{
+  "dateUtc": "2026-10-06",
+  "execution": "Shared cloud workspace; one application process; synthetic URLs only; no dedicated benchmark machine",
+  "architecture": "x86_64",
+  "os": "Linux",
+  "runtime": "openjdk version \"21.0.12.1\" 2026-08-18\nOpenJDK Runtime Environment (build 21.0.12.1+1-1-deb13u1-Debian)\nOpenJDK 64-Bit Server VM (build 21.0.12.1+1-1-deb13u1-Debian, mixed mode, sharing)",
+  "buildJava": "Eclipse Temurin JDK 21.0.12.1+1",
+  "maven": "3.9.11",
+  "springBoot": "3.5.16",
+  "h2": "2.3.232",
+  "postgresql": "17.6 native test process over loopback TCP",
+  "performanceDatabase": "H2 file on local filesystem",
+  "performanceWarmup": "No dedicated warm-up phase. API demo executed immediately before 200-request load smoke.",
+  "docker": "Not installed; Docker Compose and Testcontainers route not executed",
+  "browser": "Chromium visual launch blocked by sandbox socket restriction; no visual/a11y browser certification",
+  "remoteCi": "Workflow provided; not pushed or run on remote CI"
+}

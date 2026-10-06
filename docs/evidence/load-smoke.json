@@ -1,0 +1,12 @@
+{
+  "requests": 200,
+  "concurrency": 10,
+  "http302": 200,
+  "recordedRedirects": 200,
+  "elapsedSeconds": 0.291,
+  "requestsPerSecond": 687.4,
+  "medianMs": 13.06,
+  "p95Ms": 25.35,
+  "maxMs": 39.61,
+  "scope": "Single-machine local smoke only; not a production SLO or capacity claim."
+}

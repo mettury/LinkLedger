@@ -1,0 +1,53 @@
+REVIEWED_JAR_SHA256 bb3094d11ae6b51e63eab61ac58efc467e585ce8a03005f19d75d4dab703eddf
+PASS unauthenticated protected routes and normalization variants
+PASS destination preservation, Host independence, HEAD and GET counts
+PASS unsafe URLs, malformed/unknown JSON and body limit
+PASS concurrent aliases have one winner; case is meaningful
+PASS actuator-prefixed alias remains a public redirect
+PASS concurrent idempotency converges and mismatched replay conflicts
+PASS 100 concurrent accepted redirects retain all increments
+PASS expiry, retained alias, expired replay, protected and repeated disable
+{
+  "results": [
+    {
+      "name": "unauthenticated protected routes and normalization variants",
+      "result": "PASS"
+    },
+    {
+      "name": "destination preservation, Host independence, HEAD and GET counts",
+      "result": "PASS"
+    },
+    {
+      "name": "unsafe URLs, malformed/unknown JSON and body limit",
+      "result": "PASS"
+    },
+    {
+      "name": "concurrent aliases have one winner; case is meaningful",
+      "result": "PASS"
+    },
+    {
+      "name": "actuator-prefixed alias remains a public redirect",
+      "result": "PASS"
+    },
+    {
+      "name": "concurrent idempotency converges and mismatched replay conflicts",
+      "result": "PASS"
+    },
+    {
+      "name": "100 concurrent accepted redirects retain all increments",
+      "result": "PASS"
+    },
+    {
+      "name": "expiry, retained alias, expired replay, protected and repeated disable",
+      "result": "PASS"
+    }
+  ],
+  "passed": 8,
+  "failed": 0
+}
+BLACK_BOX_RETURN_CODE 0
+PASS trailing-json rejected400
+PASS trailing-garbage rejected400
+PASS out-of-range-expiry rejected400
+PASS chunked whitespace oversized body rejected413
+PASS H2 file restart preserves destination and counter; Flyway validates existing schema

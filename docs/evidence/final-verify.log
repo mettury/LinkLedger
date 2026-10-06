@@ -1,0 +1,408 @@
+[INFO] Scanning for projects...
+[INFO] 
+[INFO] ---------------------< dev.linkledger:linkledger >----------------------
+[INFO] Building LinkLedger 1.0.0
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- clean:3.4.1:clean (default-clean) @ linkledger ---
+[INFO] Deleting /workspace/scratch/d74c694eafe6/url_shortener_project/target
+[INFO] 
+[INFO] --- jacoco:0.8.13:prepare-agent (default) @ linkledger ---
+[INFO] argLine set to -javaagent:/tmp/linkledger-tools/m2/org/jacoco/org.jacoco.agent/0.8.13/org.jacoco.agent-0.8.13-runtime.jar=destfile=/workspace/scratch/d74c694eafe6/url_shortener_project/target/jacoco.exec
+[INFO] 
+[INFO] --- resources:3.3.1:resources (default-resources) @ linkledger ---
+[INFO] Copying 3 resources from src/main/resources to target/classes
+[INFO] Copying 5 resources from src/main/resources to target/classes
+[INFO] 
+[INFO] --- compiler:3.14.1:compile (default-compile) @ linkledger ---
+[INFO] Recompiling the module because of changed source code.
+[INFO] Compiling 19 source files with javac [debug parameters release 21] to target/classes
+[INFO] 
+[INFO] --- build-helper:3.6.1:add-test-source (embedded-test-source) @ linkledger ---
+[INFO] Test Source directory: /workspace/scratch/d74c694eafe6/url_shortener_project/src/embedded-test/java added.
+[INFO] 
+[INFO] --- resources:3.3.1:testResources (default-testResources) @ linkledger ---
+[INFO] Copying 2 resources from src/test/resources to target/test-classes
+[INFO] 
+[INFO] --- compiler:3.14.1:testCompile (default-testCompile) @ linkledger ---
+[INFO] Recompiling the module because of changed dependency.
+[INFO] Compiling 12 source files with javac [debug parameters release 21] to target/test-classes
+[INFO] 
+[INFO] --- surefire:3.5.6:test (default-test) @ linkledger ---
+[INFO] Using auto detected provider org.apache.maven.surefire.junitplatform.JUnitPlatformProvider
+[INFO] 
+[INFO] -------------------------------------------------------
+[INFO]  T E S T S
+[INFO] -------------------------------------------------------
+[INFO] Running dev.linkledger.links.AliasTest
+14:33:01.245 [main] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils -- Could not detect default configuration classes for test class [dev.linkledger.links.AliasTest]: AliasTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+14:33:01.431 [main] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper -- Found @SpringBootConfiguration dev.linkledger.LinkLedgerApplication for test class dev.linkledger.links.AliasTest
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::               (v3.5.16)
+
+2026-10-06T14:33:02.111-05:00  INFO 71 --- [linkledger] [           main] dev.linkledger.links.AliasTest           : Starting AliasTest using Java 21.0.12.1 with PID 71 (started by agent in /workspace/scratch/d74c694eafe6/url_shortener_project)
+2026-10-06T14:33:02.114-05:00  INFO 71 --- [linkledger] [           main] dev.linkledger.links.AliasTest           : The following 1 profile is active: "test"
+2026-10-06T14:33:03.904-05:00  INFO 71 --- [linkledger] [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2026-10-06T14:33:04.290-05:00  INFO 71 --- [linkledger] [           main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection conn0: url=jdbc:h2:mem:aliases user=SA
+2026-10-06T14:33:04.293-05:00  INFO 71 --- [linkledger] [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2026-10-06T14:33:04.380-05:00  INFO 71 --- [linkledger] [           main] org.flywaydb.core.FlywayExecutor         : Database: jdbc:h2:mem:aliases (H2 2.3)
+2026-10-06T14:33:04.425-05:00  INFO 71 --- [linkledger] [           main] o.f.c.i.s.JdbcTableSchemaHistory         : Schema history table "public"."flyway_schema_history" does not exist yet
+2026-10-06T14:33:04.429-05:00  INFO 71 --- [linkledger] [           main] o.f.core.internal.command.DbValidate     : Successfully validated 1 migration (execution time 00:00.020s)
+2026-10-06T14:33:04.443-05:00  INFO 71 --- [linkledger] [           main] o.f.c.i.s.JdbcTableSchemaHistory         : Creating Schema History table "public"."flyway_schema_history" ...
+2026-10-06T14:33:04.492-05:00  INFO 71 --- [linkledger] [           main] o.f.core.internal.command.DbMigrate      : Current version of schema "public": << Empty Schema >>
+2026-10-06T14:33:04.500-05:00  INFO 71 --- [linkledger] [           main] o.f.core.internal.command.DbMigrate      : Migrating schema "public" to version "1 - create links"
+2026-10-06T14:33:04.521-05:00  INFO 71 --- [linkledger] [           main] o.f.core.internal.command.DbMigrate      : Successfully applied 1 migration to schema "public", now at version v1 (execution time 00:00.009s)
+2026-10-06T14:33:04.949-05:00  INFO 71 --- [linkledger] [           main] o.s.b.a.w.s.WelcomePageHandlerMapping    : Adding welcome page: class path resource [static/index.html]
+2026-10-06T14:33:05.399-05:00  INFO 71 --- [linkledger] [           main] o.s.b.a.e.web.EndpointLinksResolver      : Exposing 3 endpoints beneath base path '/actuator'
+2026-10-06T14:33:05.481-05:00  INFO 71 --- [linkledger] [           main] dev.linkledger.links.AliasTest           : Started AliasTest in 3.844 seconds (process running for 5.321)
+Mockito is currently self-attaching to enable the inline-mock-maker. This will no longer work in future releases of the JDK. Please add Mockito as an agent to your build as described in Mockito's documentation: https://javadoc.io/doc/org.mockito/mockito-core/latest/org.mockito/org/mockito/Mockito.html#0.3
+[INFO] Tests run: 11, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 15.67 s -- in dev.linkledger.links.AliasTest
+[INFO] Running dev.linkledger.links.UrlPolicyTest
+[INFO] Tests run: 14, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.027 s -- in dev.linkledger.links.UrlPolicyTest
+[INFO] Running dev.linkledger.links.CollisionTest
+2026-10-06T14:33:16.718-05:00  INFO 71 --- [linkledger] [           main] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [dev.linkledger.links.CollisionTest]: CollisionTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-10-06T14:33:16.725-05:00  INFO 71 --- [linkledger] [           main] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration dev.linkledger.LinkLedgerApplication for test class dev.linkledger.links.CollisionTest
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::               (v3.5.16)
+
+2026-10-06T14:33:16.763-05:00  INFO 71 --- [linkledger] [           main] dev.linkledger.links.CollisionTest       : Starting CollisionTest using Java 21.0.12.1 with PID 71 (started by agent in /workspace/scratch/d74c694eafe6/url_shortener_project)
+2026-10-06T14:33:16.763-05:00  INFO 71 --- [linkledger] [           main] dev.linkledger.links.CollisionTest       : The following 1 profile is active: "test"
+2026-10-06T14:33:17.279-05:00  INFO 71 --- [linkledger] [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-2 - Starting...
+2026-10-06T14:33:17.283-05:00  INFO 71 --- [linkledger] [           main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-2 - Added connection conn10: url=jdbc:h2:mem:collisions user=SA
+2026-10-06T14:33:17.284-05:00  INFO 71 --- [linkledger] [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-2 - Start completed.
+2026-10-06T14:33:17.287-05:00  INFO 71 --- [linkledger] [           main] org.flywaydb.core.FlywayExecutor         : Database: jdbc:h2:mem:collisions (H2 2.3)
+2026-10-06T14:33:17.291-05:00  INFO 71 --- [linkledger] [           main] o.f.c.i.s.JdbcTableSchemaHistory         : Schema history table "public"."flyway_schema_history" does not exist yet
+2026-10-06T14:33:17.291-05:00  INFO 71 --- [linkledger] [           main] o.f.core.internal.command.DbValidate     : Successfully validated 1 migration (execution time 00:00.001s)
+2026-10-06T14:33:17.293-05:00  INFO 71 --- [linkledger] [           main] o.f.c.i.s.JdbcTableSchemaHistory         : Creating Schema History table "public"."flyway_schema_history" ...
+2026-10-06T14:33:17.302-05:00  INFO 71 --- [linkledger] [           main] o.f.core.internal.command.DbMigrate      : Current version of schema "public": << Empty Schema >>
+2026-10-06T14:33:17.307-05:00  INFO 71 --- [linkledger] [           main] o.f.core.internal.command.DbMigrate      : Migrating schema "public" to version "1 - create links"
+2026-10-06T14:33:17.314-05:00  INFO 71 --- [linkledger] [           main] o.f.core.internal.command.DbMigrate      : Successfully applied 1 migration to schema "public", now at version v1 (execution time 00:00.004s)
+2026-10-06T14:33:17.404-05:00  INFO 71 --- [linkledger] [           main] o.s.b.a.w.s.WelcomePageHandlerMapping    : Adding welcome page: class path resource [static/index.html]
+2026-10-06T14:33:17.497-05:00  INFO 71 --- [linkledger] [           main] o.s.b.a.e.web.EndpointLinksResolver      : Exposing 3 endpoints beneath base path '/actuator'
+2026-10-06T14:33:17.516-05:00  INFO 71 --- [linkledger] [           main] dev.linkledger.links.CollisionTest       : Started CollisionTest in 0.786 seconds (process running for 17.357)
+[INFO] Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.872 s -- in dev.linkledger.links.CollisionTest
+[INFO] Running dev.linkledger.links.LinkServiceTest
+2026-10-06T14:33:17.591-05:00  INFO 71 --- [linkledger] [           main] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [dev.linkledger.links.LinkServiceTest]: LinkServiceTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-10-06T14:33:17.592-05:00  INFO 71 --- [linkledger] [           main] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration dev.linkledger.LinkLedgerApplication for test class dev.linkledger.links.LinkServiceTest
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::               (v3.5.16)
+
+2026-10-06T14:33:17.611-05:00  INFO 71 --- [linkledger] [           main] dev.linkledger.links.LinkServiceTest     : Starting LinkServiceTest using Java 21.0.12.1 with PID 71 (started by agent in /workspace/scratch/d74c694eafe6/url_shortener_project)
+2026-10-06T14:33:17.611-05:00  INFO 71 --- [linkledger] [           main] dev.linkledger.links.LinkServiceTest     : The following 1 profile is active: "test"
+2026-10-06T14:33:17.810-05:00  INFO 71 --- [linkledger] [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-3 - Starting...
+2026-10-06T14:33:17.813-05:00  INFO 71 --- [linkledger] [           main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-3 - Added connection conn20: url=jdbc:h2:mem:link-service user=SA
+2026-10-06T14:33:17.814-05:00  INFO 71 --- [linkledger] [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-3 - Start completed.
+2026-10-06T14:33:17.817-05:00  INFO 71 --- [linkledger] [           main] org.flywaydb.core.FlywayExecutor         : Database: jdbc:h2:mem:link-service (H2 2.3)
+2026-10-06T14:33:17.821-05:00  INFO 71 --- [linkledger] [           main] o.f.c.i.s.JdbcTableSchemaHistory         : Schema history table "public"."flyway_schema_history" does not exist yet
+2026-10-06T14:33:17.821-05:00  INFO 71 --- [linkledger] [           main] o.f.core.internal.command.DbValidate     : Successfully validated 1 migration (execution time 00:00.001s)
+2026-10-06T14:33:17.823-05:00  INFO 71 --- [linkledger] [           main] o.f.c.i.s.JdbcTableSchemaHistory         : Creating Schema History table "public"."flyway_schema_history" ...
+2026-10-06T14:33:17.831-05:00  INFO 71 --- [linkledger] [           main] o.f.core.internal.command.DbMigrate      : Current version of schema "public": << Empty Schema >>
+2026-10-06T14:33:17.835-05:00  INFO 71 --- [linkledger] [           main] o.f.core.internal.command.DbMigrate      : Migrating schema "public" to version "1 - create links"
+2026-10-06T14:33:17.843-05:00  INFO 71 --- [linkledger] [           main] o.f.core.internal.command.DbMigrate      : Successfully applied 1 migration to schema "public", now at version v1 (execution time 00:00.005s)
+2026-10-06T14:33:17.907-05:00  INFO 71 --- [linkledger] [           main] o.s.b.a.w.s.WelcomePageHandlerMapping    : Adding welcome page: class path resource [static/index.html]
+2026-10-06T14:33:17.975-05:00  INFO 71 --- [linkledger] [           main] o.s.b.a.e.web.EndpointLinksResolver      : Exposing 3 endpoints beneath base path '/actuator'
+2026-10-06T14:33:17.990-05:00  INFO 71 --- [linkledger] [           main] dev.linkledger.links.LinkServiceTest     : Started LinkServiceTest in 0.395 seconds (process running for 17.83)
+[INFO] Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.424 s -- in dev.linkledger.links.LinkServiceTest
+[INFO] Running dev.linkledger.links.H2DatabaseTest
+2026-10-06T14:33:18.016-05:00  INFO 71 --- [linkledger] [           main] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [dev.linkledger.links.H2DatabaseTest]: H2DatabaseTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-10-06T14:33:18.018-05:00  INFO 71 --- [linkledger] [           main] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration dev.linkledger.LinkLedgerApplication for test class dev.linkledger.links.H2DatabaseTest
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::               (v3.5.16)
+
+2026-10-06T14:33:18.033-05:00  INFO 71 --- [linkledger] [           main] dev.linkledger.links.H2DatabaseTest      : Starting H2DatabaseTest using Java 21.0.12.1 with PID 71 (started by agent in /workspace/scratch/d74c694eafe6/url_shortener_project)
+2026-10-06T14:33:18.034-05:00  INFO 71 --- [linkledger] [           main] dev.linkledger.links.H2DatabaseTest      : The following 1 profile is active: "test"
+2026-10-06T14:33:18.306-05:00  INFO 71 --- [linkledger] [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-4 - Starting...
+2026-10-06T14:33:18.311-05:00  INFO 71 --- [linkledger] [           main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-4 - Added connection conn30: url=jdbc:h2:mem:database-contract user=SA
+2026-10-06T14:33:18.312-05:00  INFO 71 --- [linkledger] [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-4 - Start completed.
+2026-10-06T14:33:18.315-05:00  INFO 71 --- [linkledger] [           main] org.flywaydb.core.FlywayExecutor         : Database: jdbc:h2:mem:database-contract (H2 2.3)
+2026-10-06T14:33:18.320-05:00  INFO 71 --- [linkledger] [           main] o.f.c.i.s.JdbcTableSchemaHistory         : Schema history table "public"."flyway_schema_history" does not exist yet
+2026-10-06T14:33:18.320-05:00  INFO 71 --- [linkledger] [           main] o.f.core.internal.command.DbValidate     : Successfully validated 1 migration (execution time 00:00.001s)
+2026-10-06T14:33:18.322-05:00  INFO 71 --- [linkledger] [           main] o.f.c.i.s.JdbcTableSchemaHistory         : Creating Schema History table "public"."flyway_schema_history" ...
+2026-10-06T14:33:18.330-05:00  INFO 71 --- [linkledger] [           main] o.f.core.internal.command.DbMigrate      : Current version of schema "public": << Empty Schema >>
+2026-10-06T14:33:18.334-05:00  INFO 71 --- [linkledger] [           main] o.f.core.internal.command.DbMigrate      : Migrating schema "public" to version "1 - create links"
+2026-10-06T14:33:18.342-05:00  INFO 71 --- [linkledger] [           main] o.f.core.internal.command.DbMigrate      : Successfully applied 1 migration to schema "public", now at version v1 (execution time 00:00.005s)
+2026-10-06T14:33:18.402-05:00  INFO 71 --- [linkledger] [           main] o.s.b.a.w.s.WelcomePageHandlerMapping    : Adding welcome page: class path resource [static/index.html]
+2026-10-06T14:33:18.465-05:00  INFO 71 --- [linkledger] [           main] o.s.b.a.e.web.EndpointLinksResolver      : Exposing 3 endpoints beneath base path '/actuator'
+2026-10-06T14:33:18.477-05:00  INFO 71 --- [linkledger] [           main] dev.linkledger.links.H2DatabaseTest      : Started H2DatabaseTest in 0.457 seconds (process running for 18.317)
+[INFO] Tests run: 6, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.587 s -- in dev.linkledger.links.H2DatabaseTest
+[INFO] Running dev.linkledger.analytics.AnalyticsFailureTest
+2026-10-06T14:33:18.614-05:00  INFO 71 --- [linkledger] [           main] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [dev.linkledger.analytics.AnalyticsFailureTest]: AnalyticsFailureTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-10-06T14:33:18.625-05:00  INFO 71 --- [linkledger] [           main] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration dev.linkledger.LinkLedgerApplication for test class dev.linkledger.analytics.AnalyticsFailureTest
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::               (v3.5.16)
+
+2026-10-06T14:33:18.651-05:00  INFO 71 --- [linkledger] [           main] d.l.analytics.AnalyticsFailureTest       : Starting AnalyticsFailureTest using Java 21.0.12.1 with PID 71 (started by agent in /workspace/scratch/d74c694eafe6/url_shortener_project)
+2026-10-06T14:33:18.652-05:00  INFO 71 --- [linkledger] [           main] d.l.analytics.AnalyticsFailureTest       : The following 1 profile is active: "test"
+2026-10-06T14:33:18.859-05:00  INFO 71 --- [linkledger] [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-5 - Starting...
+2026-10-06T14:33:18.862-05:00  INFO 71 --- [linkledger] [           main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-5 - Added connection conn40: url=jdbc:h2:mem:analytics-failure user=SA
+2026-10-06T14:33:18.863-05:00  INFO 71 --- [linkledger] [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-5 - Start completed.
+2026-10-06T14:33:18.864-05:00  INFO 71 --- [linkledger] [           main] org.flywaydb.core.FlywayExecutor         : Database: jdbc:h2:mem:analytics-failure (H2 2.3)
+2026-10-06T14:33:18.867-05:00  INFO 71 --- [linkledger] [           main] o.f.c.i.s.JdbcTableSchemaHistory         : Schema history table "public"."flyway_schema_history" does not exist yet
+2026-10-06T14:33:18.868-05:00  INFO 71 --- [linkledger] [           main] o.f.core.internal.command.DbValidate     : Successfully validated 1 migration (execution time 00:00.001s)
+2026-10-06T14:33:18.869-05:00  INFO 71 --- [linkledger] [           main] o.f.c.i.s.JdbcTableSchemaHistory         : Creating Schema History table "public"."flyway_schema_history" ...
+2026-10-06T14:33:18.874-05:00  INFO 71 --- [linkledger] [           main] o.f.core.internal.command.DbMigrate      : Current version of schema "public": << Empty Schema >>
+2026-10-06T14:33:18.876-05:00  INFO 71 --- [linkledger] [           main] o.f.core.internal.command.DbMigrate      : Migrating schema "public" to version "1 - create links"
+2026-10-06T14:33:18.882-05:00  INFO 71 --- [linkledger] [           main] o.f.core.internal.command.DbMigrate      : Successfully applied 1 migration to schema "public", now at version v1 (execution time 00:00.003s)
+2026-10-06T14:33:18.971-05:00  INFO 71 --- [linkledger] [           main] o.s.b.a.w.s.WelcomePageHandlerMapping    : Adding welcome page: class path resource [static/index.html]
+2026-10-06T14:33:19.052-05:00  INFO 71 --- [linkledger] [           main] o.s.b.t.m.w.SpringBootMockServletContext : Initializing Spring TestDispatcherServlet ''
+2026-10-06T14:33:19.052-05:00  INFO 71 --- [linkledger] [           main] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+2026-10-06T14:33:19.054-05:00  INFO 71 --- [linkledger] [           main] o.s.b.a.e.web.EndpointLinksResolver      : Exposing 3 endpoints beneath base path '/actuator'
+2026-10-06T14:33:19.061-05:00  INFO 71 --- [linkledger] [           main] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 6 ms
+2026-10-06T14:33:19.076-05:00  INFO 71 --- [linkledger] [           main] d.l.analytics.AnalyticsFailureTest       : Started AnalyticsFailureTest in 0.448 seconds (process running for 18.916)
+2026-10-06T14:33:19.164-05:00  WARN 71 --- [linkledger] [           main] d.linkledger.analytics.AnalyticsService  : event=analytics_write_failed category=DataAccessResourceFailureException
+[INFO] Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.580 s -- in dev.linkledger.analytics.AnalyticsFailureTest
+[INFO] Running dev.linkledger.api.HttpSecurityTest
+2026-10-06T14:33:19.197-05:00  INFO 71 --- [linkledger] [           main] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [dev.linkledger.api.HttpSecurityTest]: HttpSecurityTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-10-06T14:33:19.205-05:00  INFO 71 --- [linkledger] [           main] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration dev.linkledger.LinkLedgerApplication for test class dev.linkledger.api.HttpSecurityTest
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::               (v3.5.16)
+
+2026-10-06T14:33:19.364-05:00  INFO 71 --- [linkledger] [           main] dev.linkledger.api.HttpSecurityTest      : Starting HttpSecurityTest using Java 21.0.12.1 with PID 71 (started by agent in /workspace/scratch/d74c694eafe6/url_shortener_project)
+2026-10-06T14:33:19.364-05:00  INFO 71 --- [linkledger] [           main] dev.linkledger.api.HttpSecurityTest      : The following 1 profile is active: "test"
+2026-10-06T14:33:19.682-05:00  INFO 71 --- [linkledger] [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 0 (http)
+2026-10-06T14:33:19.699-05:00  INFO 71 --- [linkledger] [           main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-10-06T14:33:19.700-05:00  INFO 71 --- [linkledger] [           main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.55]
+2026-10-06T14:33:19.738-05:00  INFO 71 --- [linkledger] [           main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2026-10-06T14:33:19.739-05:00  INFO 71 --- [linkledger] [           main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 373 ms
+2026-10-06T14:33:19.836-05:00  INFO 71 --- [linkledger] [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-6 - Starting...
+2026-10-06T14:33:19.838-05:00  INFO 71 --- [linkledger] [           main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-6 - Added connection conn50: url=jdbc:h2:mem:http-security user=SA
+2026-10-06T14:33:19.839-05:00  INFO 71 --- [linkledger] [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-6 - Start completed.
+2026-10-06T14:33:19.840-05:00  INFO 71 --- [linkledger] [           main] org.flywaydb.core.FlywayExecutor         : Database: jdbc:h2:mem:http-security (H2 2.3)
+2026-10-06T14:33:19.844-05:00  INFO 71 --- [linkledger] [           main] o.f.c.i.s.JdbcTableSchemaHistory         : Schema history table "public"."flyway_schema_history" does not exist yet
+2026-10-06T14:33:19.844-05:00  INFO 71 --- [linkledger] [           main] o.f.core.internal.command.DbValidate     : Successfully validated 1 migration (execution time 00:00.001s)
+2026-10-06T14:33:19.845-05:00  INFO 71 --- [linkledger] [           main] o.f.c.i.s.JdbcTableSchemaHistory         : Creating Schema History table "public"."flyway_schema_history" ...
+2026-10-06T14:33:19.851-05:00  INFO 71 --- [linkledger] [           main] o.f.core.internal.command.DbMigrate      : Current version of schema "public": << Empty Schema >>
+2026-10-06T14:33:19.853-05:00  INFO 71 --- [linkledger] [           main] o.f.core.internal.command.DbMigrate      : Migrating schema "public" to version "1 - create links"
+2026-10-06T14:33:19.858-05:00  INFO 71 --- [linkledger] [           main] o.f.core.internal.command.DbMigrate      : Successfully applied 1 migration to schema "public", now at version v1 (execution time 00:00.003s)
+2026-10-06T14:33:19.877-05:00  INFO 71 --- [linkledger] [           main] o.s.b.a.w.s.WelcomePageHandlerMapping    : Adding welcome page: class path resource [static/index.html]
+2026-10-06T14:33:19.927-05:00  INFO 71 --- [linkledger] [           main] o.s.b.a.e.web.EndpointLinksResolver      : Exposing 3 endpoints beneath base path '/actuator'
+2026-10-06T14:33:19.980-05:00  INFO 71 --- [linkledger] [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 39825 (http) with context path '/'
+2026-10-06T14:33:19.989-05:00  INFO 71 --- [linkledger] [           main] dev.linkledger.api.HttpSecurityTest      : Started HttpSecurityTest in 0.644 seconds (process running for 19.829)
+2026-10-06T14:33:20.121-05:00  INFO 71 --- [linkledger] [1-auto-1-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-10-06T14:33:20.121-05:00  INFO 71 --- [linkledger] [1-auto-1-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2026-10-06T14:33:20.123-05:00  INFO 71 --- [linkledger] [1-auto-1-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
+[INFO] Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 1.073 s -- in dev.linkledger.api.HttpSecurityTest
+[INFO] Running dev.linkledger.api.ApiIntegrationTest
+2026-10-06T14:33:20.272-05:00  INFO 71 --- [linkledger] [           main] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [dev.linkledger.api.ApiIntegrationTest]: ApiIntegrationTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-10-06T14:33:20.277-05:00  INFO 71 --- [linkledger] [           main] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration dev.linkledger.LinkLedgerApplication for test class dev.linkledger.api.ApiIntegrationTest
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::               (v3.5.16)
+
+2026-10-06T14:33:20.304-05:00  INFO 71 --- [linkledger] [           main] dev.linkledger.api.ApiIntegrationTest    : Starting ApiIntegrationTest using Java 21.0.12.1 with PID 71 (started by agent in /workspace/scratch/d74c694eafe6/url_shortener_project)
+2026-10-06T14:33:20.304-05:00  INFO 71 --- [linkledger] [           main] dev.linkledger.api.ApiIntegrationTest    : The following 1 profile is active: "test"
+2026-10-06T14:33:20.577-05:00  INFO 71 --- [linkledger] [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-7 - Starting...
+2026-10-06T14:33:20.584-05:00  INFO 71 --- [linkledger] [           main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-7 - Added connection conn60: url=jdbc:h2:mem:linkledger-test user=SA
+2026-10-06T14:33:20.584-05:00  INFO 71 --- [linkledger] [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-7 - Start completed.
+2026-10-06T14:33:20.588-05:00  INFO 71 --- [linkledger] [           main] org.flywaydb.core.FlywayExecutor         : Database: jdbc:h2:mem:linkledger-test (H2 2.3)
+2026-10-06T14:33:20.592-05:00  INFO 71 --- [linkledger] [           main] o.f.c.i.s.JdbcTableSchemaHistory         : Schema history table "public"."flyway_schema_history" does not exist yet
+2026-10-06T14:33:20.593-05:00  INFO 71 --- [linkledger] [           main] o.f.core.internal.command.DbValidate     : Successfully validated 1 migration (execution time 00:00.001s)
+2026-10-06T14:33:20.594-05:00  INFO 71 --- [linkledger] [           main] o.f.c.i.s.JdbcTableSchemaHistory         : Creating Schema History table "public"."flyway_schema_history" ...
+2026-10-06T14:33:20.601-05:00  INFO 71 --- [linkledger] [           main] o.f.core.internal.command.DbMigrate      : Current version of schema "public": << Empty Schema >>
+2026-10-06T14:33:20.603-05:00  INFO 71 --- [linkledger] [           main] o.f.core.internal.command.DbMigrate      : Migrating schema "public" to version "1 - create links"
+2026-10-06T14:33:20.608-05:00  INFO 71 --- [linkledger] [           main] o.f.core.internal.command.DbMigrate      : Successfully applied 1 migration to schema "public", now at version v1 (execution time 00:00.003s)
+2026-10-06T14:33:20.669-05:00  INFO 71 --- [linkledger] [           main] o.s.b.a.w.s.WelcomePageHandlerMapping    : Adding welcome page: class path resource [static/index.html]
+2026-10-06T14:33:20.742-05:00  INFO 71 --- [linkledger] [           main] o.s.b.t.m.w.SpringBootMockServletContext : Initializing Spring TestDispatcherServlet ''
+2026-10-06T14:33:20.742-05:00  INFO 71 --- [linkledger] [           main] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+2026-10-06T14:33:20.744-05:00  INFO 71 --- [linkledger] [           main] o.s.b.a.e.web.EndpointLinksResolver      : Exposing 3 endpoints beneath base path '/actuator'
+2026-10-06T14:33:20.748-05:00  INFO 71 --- [linkledger] [           main] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 6 ms
+2026-10-06T14:33:20.759-05:00  INFO 71 --- [linkledger] [           main] dev.linkledger.api.ApiIntegrationTest    : Started ApiIntegrationTest in 0.476 seconds (process running for 20.6)
+[INFO] Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.689 s -- in dev.linkledger.api.ApiIntegrationTest
+[INFO] Running dev.linkledger.api.RateLimitHttpTest
+2026-10-06T14:33:20.963-05:00  INFO 71 --- [linkledger] [           main] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [dev.linkledger.api.RateLimitHttpTest]: RateLimitHttpTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-10-06T14:33:20.965-05:00  INFO 71 --- [linkledger] [           main] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration dev.linkledger.LinkLedgerApplication for test class dev.linkledger.api.RateLimitHttpTest
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::               (v3.5.16)
+
+2026-10-06T14:33:20.986-05:00  INFO 71 --- [linkledger] [           main] dev.linkledger.api.RateLimitHttpTest     : Starting RateLimitHttpTest using Java 21.0.12.1 with PID 71 (started by agent in /workspace/scratch/d74c694eafe6/url_shortener_project)
+2026-10-06T14:33:20.986-05:00  INFO 71 --- [linkledger] [           main] dev.linkledger.api.RateLimitHttpTest     : The following 1 profile is active: "test"
+2026-10-06T14:33:21.132-05:00  INFO 71 --- [linkledger] [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 0 (http)
+2026-10-06T14:33:21.133-05:00  INFO 71 --- [linkledger] [           main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-10-06T14:33:21.133-05:00  INFO 71 --- [linkledger] [           main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.55]
+2026-10-06T14:33:21.143-05:00  INFO 71 --- [linkledger] [           main] o.a.c.c.C.[Tomcat-1].[localhost].[/]     : Initializing Spring embedded WebApplicationContext
+2026-10-06T14:33:21.143-05:00  INFO 71 --- [linkledger] [           main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 156 ms
+2026-10-06T14:33:21.205-05:00  INFO 71 --- [linkledger] [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-8 - Starting...
+2026-10-06T14:33:21.208-05:00  INFO 71 --- [linkledger] [           main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-8 - Added connection conn70: url=jdbc:h2:mem:rate-limit user=SA
+2026-10-06T14:33:21.208-05:00  INFO 71 --- [linkledger] [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-8 - Start completed.
+2026-10-06T14:33:21.209-05:00  INFO 71 --- [linkledger] [           main] org.flywaydb.core.FlywayExecutor         : Database: jdbc:h2:mem:rate-limit (H2 2.3)
+2026-10-06T14:33:21.211-05:00  INFO 71 --- [linkledger] [           main] o.f.c.i.s.JdbcTableSchemaHistory         : Schema history table "public"."flyway_schema_history" does not exist yet
+2026-10-06T14:33:21.211-05:00  INFO 71 --- [linkledger] [           main] o.f.core.internal.command.DbValidate     : Successfully validated 1 migration (execution time 00:00.000s)
+2026-10-06T14:33:21.213-05:00  INFO 71 --- [linkledger] [           main] o.f.c.i.s.JdbcTableSchemaHistory         : Creating Schema History table "public"."flyway_schema_history" ...
+2026-10-06T14:33:21.218-05:00  INFO 71 --- [linkledger] [           main] o.f.core.internal.command.DbMigrate      : Current version of schema "public": << Empty Schema >>
+2026-10-06T14:33:21.220-05:00  INFO 71 --- [linkledger] [           main] o.f.core.internal.command.DbMigrate      : Migrating schema "public" to version "1 - create links"
+2026-10-06T14:33:21.224-05:00  INFO 71 --- [linkledger] [           main] o.f.core.internal.command.DbMigrate      : Successfully applied 1 migration to schema "public", now at version v1 (execution time 00:00.003s)
+2026-10-06T14:33:21.243-05:00  INFO 71 --- [linkledger] [           main] o.s.b.a.w.s.WelcomePageHandlerMapping    : Adding welcome page: class path resource [static/index.html]
+2026-10-06T14:33:21.293-05:00  INFO 71 --- [linkledger] [           main] o.s.b.a.e.web.EndpointLinksResolver      : Exposing 3 endpoints beneath base path '/actuator'
+2026-10-06T14:33:21.316-05:00  INFO 71 --- [linkledger] [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 39249 (http) with context path '/'
+2026-10-06T14:33:21.325-05:00  INFO 71 --- [linkledger] [           main] dev.linkledger.api.RateLimitHttpTest     : Started RateLimitHttpTest in 0.356 seconds (process running for 21.165)
+2026-10-06T14:33:21.338-05:00  INFO 71 --- [linkledger] [1-auto-2-exec-1] o.a.c.c.C.[Tomcat-1].[localhost].[/]     : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-10-06T14:33:21.339-05:00  INFO 71 --- [linkledger] [1-auto-2-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2026-10-06T14:33:21.340-05:00  INFO 71 --- [linkledger] [1-auto-2-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
+[INFO] Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.421 s -- in dev.linkledger.api.RateLimitHttpTest
+[INFO] 
+[INFO] Results:
+[INFO] 
+[INFO] Tests run: 44, Failures: 0, Errors: 0, Skipped: 0
+[INFO] 
+[INFO] 
+[INFO] --- jar:3.4.2:jar (default-jar) @ linkledger ---
+[INFO] Building jar: /workspace/scratch/d74c694eafe6/url_shortener_project/target/linkledger-1.0.0.jar
+[INFO] 
+[INFO] --- spring-boot:3.5.16:repackage (repackage) @ linkledger ---
+[INFO] Replacing main artifact /workspace/scratch/d74c694eafe6/url_shortener_project/target/linkledger-1.0.0.jar with repackaged archive, adding nested dependencies in BOOT-INF/.
+[INFO] The original artifact has been renamed to /workspace/scratch/d74c694eafe6/url_shortener_project/target/linkledger-1.0.0.jar.original
+[INFO] 
+[INFO] --- failsafe:3.5.6:integration-test (default) @ linkledger ---
+[INFO] Using auto detected provider org.apache.maven.surefire.junitplatform.JUnitPlatformProvider
+[INFO] 
+[INFO] -------------------------------------------------------
+[INFO]  T E S T S
+[INFO] -------------------------------------------------------
+[INFO] Running dev.linkledger.links.EmbeddedPostgresIT
+14:33:23.593 [main] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils -- Could not detect default configuration classes for test class [dev.linkledger.links.EmbeddedPostgresIT]: EmbeddedPostgresIT does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+14:33:23.785 [main] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper -- Found @SpringBootConfiguration dev.linkledger.LinkLedgerApplication for test class dev.linkledger.links.EmbeddedPostgresIT
+14:33:23.997 [main] INFO io.zonky.test.db.postgres.embedded.EmbeddedPostgres -- Detected a Linux x86_64 system
+14:33:24.027 [main] INFO io.zonky.test.db.postgres.embedded.DefaultPostgresBinaryResolver -- Detected distribution: 'Debian'
+14:33:24.030 [main] INFO io.zonky.test.db.postgres.embedded.DefaultPostgresBinaryResolver -- System specific postgres binaries found: 'postgres-linux-x86_64.txz'
+14:33:24.114 [main] INFO io.zonky.test.db.postgres.embedded.EmbeddedPostgres -- Postgres binaries at /tmp/embedded-pg/PG-8633e0cc222b6e8c5af57b0768a0fd0d
+14:33:24.133 [initdb:pid(313)] INFO io.zonky.test.db.postgres.embedded.EmbeddedPostgres -- The files belonging to this database system will be owned by user "agent".
+14:33:24.133 [initdb:pid(313)] INFO io.zonky.test.db.postgres.embedded.EmbeddedPostgres -- This user must also own the server process.
+14:33:24.133 [initdb:pid(313)] INFO io.zonky.test.db.postgres.embedded.EmbeddedPostgres -- 
+14:33:24.134 [initdb:pid(313)] INFO io.zonky.test.db.postgres.embedded.EmbeddedPostgres -- The database cluster will be initialized with locale "C.UTF-8".
+14:33:24.134 [initdb:pid(313)] INFO io.zonky.test.db.postgres.embedded.EmbeddedPostgres -- The default text search configuration will be set to "english".
+14:33:24.134 [initdb:pid(313)] INFO io.zonky.test.db.postgres.embedded.EmbeddedPostgres -- 
+14:33:24.134 [initdb:pid(313)] INFO io.zonky.test.db.postgres.embedded.EmbeddedPostgres -- Data page checksums are disabled.
+14:33:24.134 [initdb:pid(313)] INFO io.zonky.test.db.postgres.embedded.EmbeddedPostgres -- 
+14:33:24.134 [initdb:pid(313)] INFO io.zonky.test.db.postgres.embedded.EmbeddedPostgres -- fixing permissions on existing directory /tmp/epg3574758671166113074 ... ok
+14:33:24.134 [initdb:pid(313)] INFO io.zonky.test.db.postgres.embedded.EmbeddedPostgres -- creating subdirectories ... ok
+14:33:24.134 [initdb:pid(313)] INFO io.zonky.test.db.postgres.embedded.EmbeddedPostgres -- selecting dynamic shared memory implementation ... posix
+14:33:24.143 [initdb:pid(313)] INFO io.zonky.test.db.postgres.embedded.EmbeddedPostgres -- selecting default "max_connections" ... 100
+14:33:24.155 [initdb:pid(313)] INFO io.zonky.test.db.postgres.embedded.EmbeddedPostgres -- selecting default "shared_buffers" ... 128MB
+14:33:24.162 [initdb:pid(313)] INFO io.zonky.test.db.postgres.embedded.EmbeddedPostgres -- selecting default time zone ... America/Chicago
+14:33:24.163 [initdb:pid(313)] INFO io.zonky.test.db.postgres.embedded.EmbeddedPostgres -- creating configuration files ... ok
+14:33:24.294 [initdb:pid(313)] INFO io.zonky.test.db.postgres.embedded.EmbeddedPostgres -- running bootstrap script ... ok
+14:33:24.559 [initdb:pid(313)] INFO io.zonky.test.db.postgres.embedded.EmbeddedPostgres -- performing post-bootstrap initialization ... ok
+14:33:24.561 [initdb:pid(313)] INFO io.zonky.test.db.postgres.embedded.EmbeddedPostgres -- syncing data to disk ... ok
+14:33:24.562 [initdb:pid(313)] INFO io.zonky.test.db.postgres.embedded.EmbeddedPostgres -- 
+14:33:24.562 [initdb:pid(313)] INFO io.zonky.test.db.postgres.embedded.EmbeddedPostgres -- Success. You can now start the database server using:
+14:33:24.562 [initdb:pid(313)] INFO io.zonky.test.db.postgres.embedded.EmbeddedPostgres -- 
+14:33:24.562 [initdb:pid(313)] INFO io.zonky.test.db.postgres.embedded.EmbeddedPostgres --     /tmp/embedded-pg/PG-8633e0cc222b6e8c5af57b0768a0fd0d/bin/pg_ctl -D /tmp/epg3574758671166113074 -l logfile start
+14:33:24.562 [initdb:pid(313)] INFO io.zonky.test.db.postgres.embedded.EmbeddedPostgres -- 
+14:33:24.562 [main] INFO io.zonky.test.db.postgres.embedded.EmbeddedPostgres -- f3d206f7-71ad-441d-a706-080b28d45cd9 initdb completed in 00:00:00.445
+14:33:24.569 [main] INFO io.zonky.test.db.postgres.embedded.EmbeddedPostgres -- f3d206f7-71ad-441d-a706-080b28d45cd9 postmaster started as Process[pid=327, exitValue="not exited"] on port 42285.  Waiting up to PT10S for server startup to finish.
+14:33:24.588 [postgres:pid(327)] INFO io.zonky.test.db.postgres.embedded.EmbeddedPostgres -- waiting for server to start....2026-10-06 14:33:24.588 CDT [331] LOG:  starting PostgreSQL 17.6 on x86_64-pc-linux-gnu, compiled by gcc (Ubuntu 7.5.0-3ubuntu1~18.04) 7.5.0, 64-bit
+14:33:24.589 [postgres:pid(327)] INFO io.zonky.test.db.postgres.embedded.EmbeddedPostgres -- 2026-10-06 14:33:24.588 CDT [331] LOG:  listening on IPv6 address "::1", port 42285
+14:33:24.589 [postgres:pid(327)] INFO io.zonky.test.db.postgres.embedded.EmbeddedPostgres -- 2026-10-06 14:33:24.588 CDT [331] LOG:  listening on IPv4 address "127.0.0.1", port 42285
+14:33:24.589 [postgres:pid(327)] INFO io.zonky.test.db.postgres.embedded.EmbeddedPostgres -- 2026-10-06 14:33:24.589 CDT [335] LOG:  database system was shut down at 2026-10-06 14:33:24 CDT
+14:33:24.591 [postgres:pid(327)] INFO io.zonky.test.db.postgres.embedded.EmbeddedPostgres -- 2026-10-06 14:33:24.591 CDT [331] LOG:  database system is ready to accept connections
+14:33:24.677 [postgres:pid(327)] INFO io.zonky.test.db.postgres.embedded.EmbeddedPostgres --  done
+14:33:24.677 [postgres:pid(327)] INFO io.zonky.test.db.postgres.embedded.EmbeddedPostgres -- server started
+14:33:24.872 [main] INFO io.zonky.test.db.postgres.embedded.EmbeddedPostgres -- f3d206f7-71ad-441d-a706-080b28d45cd9 postmaster startup finished in 00:00:00.306
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::               (v3.5.16)
+
+2026-10-06T14:33:25.429-05:00  INFO 279 --- [linkledger] [           main] d.linkledger.links.EmbeddedPostgresIT    : Starting EmbeddedPostgresIT using Java 21.0.12.1 with PID 279 (started by agent in /workspace/scratch/d74c694eafe6/url_shortener_project)
+2026-10-06T14:33:25.430-05:00  INFO 279 --- [linkledger] [           main] d.linkledger.links.EmbeddedPostgresIT    : The following 1 profile is active: "test"
+2026-10-06T14:33:27.103-05:00  INFO 279 --- [linkledger] [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2026-10-06T14:33:27.118-05:00  INFO 279 --- [linkledger] [           main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@6565f3
+2026-10-06T14:33:27.119-05:00  INFO 279 --- [linkledger] [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2026-10-06T14:33:27.163-05:00  INFO 279 --- [linkledger] [           main] org.flywaydb.core.FlywayExecutor         : Database: jdbc:postgresql://localhost:42285/postgres?user=postgres (PostgreSQL 17.6)
+2026-10-06T14:33:27.206-05:00  INFO 279 --- [linkledger] [           main] o.f.c.i.s.JdbcTableSchemaHistory         : Schema history table "public"."flyway_schema_history" does not exist yet
+2026-10-06T14:33:27.212-05:00  INFO 279 --- [linkledger] [           main] o.f.core.internal.command.DbValidate     : Successfully validated 1 migration (execution time 00:00.023s)
+2026-10-06T14:33:27.227-05:00  INFO 279 --- [linkledger] [           main] o.f.c.i.s.JdbcTableSchemaHistory         : Creating Schema History table "public"."flyway_schema_history" ...
+2026-10-06T14:33:27.270-05:00  INFO 279 --- [linkledger] [           main] o.f.core.internal.command.DbMigrate      : Current version of schema "public": << Empty Schema >>
+2026-10-06T14:33:27.281-05:00  INFO 279 --- [linkledger] [           main] o.f.core.internal.command.DbMigrate      : Migrating schema "public" to version "1 - create links"
+2026-10-06T14:33:27.304-05:00  INFO 279 --- [linkledger] [           main] o.f.core.internal.command.DbMigrate      : Successfully applied 1 migration to schema "public", now at version v1 (execution time 00:00.008s)
+2026-10-06T14:33:27.789-05:00  INFO 279 --- [linkledger] [           main] o.s.b.a.w.s.WelcomePageHandlerMapping    : Adding welcome page: class path resource [static/index.html]
+2026-10-06T14:33:28.286-05:00  INFO 279 --- [linkledger] [           main] o.s.b.a.e.web.EndpointLinksResolver      : Exposing 3 endpoints beneath base path '/actuator'
+2026-10-06T14:33:28.378-05:00  INFO 279 --- [linkledger] [           main] d.linkledger.links.EmbeddedPostgresIT    : Started EmbeddedPostgresIT in 3.462 seconds (process running for 5.856)
+Mockito is currently self-attaching to enable the inline-mock-maker. This will no longer work in future releases of the JDK. Please add Mockito as an agent to your build as described in Mockito's documentation: https://javadoc.io/doc/org.mockito/mockito-core/latest/org.mockito/org/mockito/Mockito.html#0.3
+2026-10-06T14:33:39.761-05:00  INFO 279 --- [linkledger] [           main] i.z.t.d.p.embedded.EmbeddedPostgres      : f3d206f7-71ad-441d-a706-080b28d45cd9 shut down postmaster in 00:00:00.103
+2026-10-06T14:33:39.760-05:00  INFO 279 --- [linkledger] [pg_ctl:pid(415)] i.z.t.d.p.embedded.EmbeddedPostgres      : waiting for server to shut down.... done
+2026-10-06T14:33:39.761-05:00  INFO 279 --- [linkledger] [pg_ctl:pid(415)] i.z.t.d.p.embedded.EmbeddedPostgres      : server stopped
+[INFO] Tests run: 6, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 16.49 s -- in dev.linkledger.links.EmbeddedPostgresIT
+[INFO] 
+[INFO] Results:
+[INFO] 
+[INFO] Tests run: 6, Failures: 0, Errors: 0, Skipped: 0
+[INFO] 
+[INFO] 
+[INFO] --- checkstyle:3.6.0:check (default) @ linkledger ---
+[INFO] Starting audit...
+Audit done.
+[INFO] You have 0 Checkstyle violations.
+[INFO] 
+[INFO] --- jacoco:0.8.13:report (report) @ linkledger ---
+[INFO] Loading execution data file /workspace/scratch/d74c694eafe6/url_shortener_project/target/jacoco.exec
+[INFO] Analyzed bundle 'LinkLedger' with 22 classes
+[INFO] 
+[INFO] --- failsafe:3.5.6:verify (default) @ linkledger ---
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  44.175 s
+[INFO] Finished at: 2026-10-06T14:33:41-05:00
+[INFO] ------------------------------------------------------------------------

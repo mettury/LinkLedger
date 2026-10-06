@@ -1,0 +1,4 @@
+REVIEWED_JAR_SHA256 bb3094d11ae6b51e63eab61ac58efc467e585ce8a03005f19d75d4dab703eddf
+PASS real missing metrics table: redirect302, analytics failure metric1, statistics503 with sanitized error
+PASS real missing authoritative link table: redirect503 rather than invented destination
+PASS failure logs omit synthetic destination query token and API key

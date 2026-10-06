@@ -1,0 +1,39 @@
+spring:
+  application:
+    name: linkledger
+  profiles:
+    default: local
+  jackson:
+    deserialization:
+      fail-on-unknown-properties: true
+      fail-on-trailing-tokens: true
+  datasource:
+    hikari:
+      maximum-pool-size: 10
+      connection-timeout: 1500
+      validation-timeout: 1000
+  jdbc:
+    template:
+      query-timeout: 2
+server:
+  address: ${SERVER_ADDRESS:127.0.0.1}
+  port: ${PORT:8080}
+  max-http-request-header-size: 8KB
+  forward-headers-strategy: none
+  error:
+    include-message: never
+    include-stacktrace: never
+  tomcat:
+    max-http-form-post-size: 8KB
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics
+  endpoint:
+    health:
+      show-details: never
+app:
+  base-url: ${APP_BASE_URL:http://localhost:8080}
+  api-key: ${APP_API_KEY:}
+  create-limit-per-minute: ${APP_CREATE_LIMIT:60}

@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f5f5f0">
+  <meta name="description" content="Create, inspect, and manage short links with LinkLedger, a local Spring Boot prototype.">
+  <title>LinkLedger · Link workspace</title>
+  <link rel="icon" href="data:,">
+  <link rel="stylesheet" href="/styles.css">
+  <script src="/app.js" defer></script>
+</head>
+<body>
+<a class="skip-link" href="#workspace">Skip to workspace</a>
+<svg class="icon-definitions" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
+  <symbol id="i-link" viewBox="0 0 24 24"><path d="m10 13 4-4m-5 7-1 1a4.25 4.25 0 0 1-6-6l4-4a4.25 4.25 0 0 1 6 0m0 10a4.25 4.25 0 0 0 6 0l4-4a4.25 4.25 0 0 0-6-6l-1 1"/></symbol>
+  <symbol id="i-grid" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></symbol>
+  <symbol id="i-chart" viewBox="0 0 24 24"><path d="M4 4v16h16M9 15v-4m5 4V7m5 8v-6"/></symbol>
+  <symbol id="i-code" viewBox="0 0 24 24"><path d="m8 7-5 5 5 5m8-10 5 5-5 5m-3-13-2 16"/></symbol>
+  <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M4 12h16m-6-6 6 6-6 6"/></symbol>
+  <symbol id="i-external" viewBox="0 0 24 24"><path d="M14 3h7v7m0-7L10 14m0-10H4a1 1 0 0 0-1 1v15a1 1 0 0 0 1 1h15a1 1 0 0 0 1-1v-6"/></symbol>
+  <symbol id="i-copy" viewBox="0 0 24 24"><rect x="8" y="8" width="12" height="13" rx="2"/><path d="M15 8V4a1 1 0 0 0-1-1H4a1 1 0 0 0-1 1v11a1 1 0 0 0 1 1h4"/></symbol>
+  <symbol id="i-lock" viewBox="0 0 24 24"><rect x="5" y="10" width="14" height="11" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3m-4 5v2"/></symbol>
+  <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
+</svg>
+<aside class="sidebar" aria-label="Workspace navigation">
+  <a class="brand" href="#workspace" aria-label="LinkLedger home"><span class="brand-mark"><svg class="icon"><use href="#i-link"/></svg></span><span>LinkLedger<span class="brand-period">.</span></span></a>
+  <div class="workspace-tag"><span class="workspace-avatar">L</span><div>Personal workspace<span>Development environment</span></div><span class="workspace-dot" aria-hidden="true"></span></div>
+  <p class="nav-label">WORKSPACE</p>
+  <nav class="nav-links" aria-label="Main">
+    <a class="nav-link active" href="#workspace" aria-current="page"><svg class="icon"><use href="#i-grid"/></svg><span>Overview</span></a>
+    <a class="nav-link" href="#inspector"><svg class="icon"><use href="#i-chart"/></svg><span>Link inspector</span></a>
+    <a class="nav-link" href="#developer-notes"><svg class="icon"><use href="#i-code"/></svg><span>API notes</span></a>
+  </nav>
+  <div class="sidebar-bottom"><div class="small-orbit" aria-hidden="true"><span></span><span></span></div><h2>One link. Less friction.</h2><p>A focused workspace for creating and understanding your short links.</p><span class="prototype-label">INTERVIEW PROTOTYPE <span>↗</span></span></div>
+  <div class="sidebar-footer"><span class="workspace-dot" aria-hidden="true"></span>LinkLedger <span>v1.0</span></div>
+</aside>
+<div class="app-shell">
+  <header class="topbar"><div class="breadcrumb">Workspace<span aria-hidden="true">/</span><strong>Overview</strong></div><div class="environment-badge"><span aria-hidden="true"></span>Local prototype</div></header>
+  <main id="workspace" tabindex="-1">
+    <section class="page-intro" aria-labelledby="page-title"><div><div class="eyebrow"><span aria-hidden="true"></span>GOOD LINKS GO FURTHER</div><h1 id="page-title">Your links, under control.</h1><p>Shorten a URL. Make it yours. See where it goes.</p></div><a class="intro-link" href="#create-title">Create a link<svg class="icon"><use href="#i-plus"/></svg></a></section>
+    <div class="workspace-grid">
+      <div class="primary-column">
+        <section class="card create-card" aria-labelledby="create-title">
+          <div class="card-header"><div class="section-heading"><span class="section-icon"><svg class="icon"><use href="#i-link"/></svg></span><div><h2 id="create-title">Create a short link</h2><p>A shorter way to your next destination.</p></div></div><span class="step-label">01 / CREATE</span></div>
+          <form id="create-form">
+            <fieldset id="create-fields">
+              <div class="field"><label for="target-url">Destination URL <span class="required-mark" aria-label="required">*</span></label><input id="target-url" name="url" type="url" placeholder="https://example.com/something-worth-sharing" autocomplete="url" spellcheck="false" required maxlength="2048" aria-describedby="url-hint"><p class="field-hint" id="url-hint">Use a complete http:// or https:// address.</p></div>
+              <div class="field-row">
+                <div class="field"><label for="custom-alias">Custom alias <span class="optional">Optional</span></label><div class="input-with-prefix"><span aria-hidden="true">/</span><input id="custom-alias" name="customAlias" type="text" placeholder="launch-notes" autocomplete="off" spellcheck="false" pattern="[A-Za-z0-9_\-]{3,32}" minlength="3" maxlength="32" aria-describedby="alias-hint"></div><p class="field-hint" id="alias-hint">3–32 letters, numbers, hyphens or underscores.</p></div>
+                <div class="field"><label for="expires-at">Expiration <span class="optional">Optional</span></label><input id="expires-at" name="expiresAt" type="datetime-local" aria-describedby="expiry-hint"><p class="field-hint" id="expiry-hint">Your local time. Leave blank to keep it active.</p></div>
+              </div>
+              <div class="create-footer"><span><svg class="icon"><use href="#i-lock"/></svg>Protected with your API key</span><button class="button button-primary" id="create-button" type="submit"><span class="button-label">Shorten link</span><svg class="icon"><use href="#i-arrow"/></svg></button></div>
+            </fieldset>
+            <div class="feedback error-feedback" id="create-error" role="alert" hidden></div>
+          </form>
+        </section>
+        <section class="card result-card" aria-labelledby="result-title">
+          <div class="result-heading"><div><span class="eyebrow muted">THE DESTINATION, SIMPLIFIED</span><h2 id="result-title">Your link</h2></div><span id="link-status" class="status-pill" hidden></span></div>
+          <div id="result-empty" class="empty-state"><div class="empty-art" aria-hidden="true"><span class="art-line"></span><span class="art-link"><svg class="icon"><use href="#i-link"/></svg></span><span class="art-line short"></span></div><h3>A small link with a big destination.</h3><p>Create your first link above, or look up an existing code<br class="desktop-break"> in the inspector to see its details here.</p><span class="empty-label">READY WHEN YOU ARE</span></div>
+          <div id="result-content" hidden>
+            <p id="result-notice" class="result-notice" role="status"></p>
+            <div class="short-link-box"><a id="short-link" target="_blank" rel="noopener noreferrer"></a><button id="copy-button" class="icon-button" type="button" aria-label="Copy short URL" title="Copy short URL"><svg class="icon"><use href="#i-copy"/></svg></button></div>
+            <div class="destination"><span>Destination</span><p id="destination-url"></p></div>
+            <dl class="link-details"><div><dt>Short code</dt><dd id="detail-code"></dd></div><div><dt>Created</dt><dd id="detail-created"></dd></div><div><dt>Expires</dt><dd id="detail-expires"></dd></div></dl>
+            <div class="result-actions"><a class="button button-secondary" id="open-link" target="_blank" rel="noopener noreferrer">Test redirect<svg class="icon"><use href="#i-external"/></svg></a><button id="disable-button" class="button button-danger" type="button">Disable link</button></div>
+            <p class="field-hint">Opening an active short link records a GET resolution and leaves this app.</p>
+            <p id="result-feedback" class="feedback" role="status" hidden></p>
+          </div>
+        </section>
+      </div>
+      <div class="secondary-column">
+        <section class="inspector-card" id="inspector" aria-labelledby="inspector-title">
+          <div class="inspector-header"><span class="section-icon"><svg class="icon"><use href="#i-chart"/></svg></span><span class="step-label">02 / UNDERSTAND</span></div><h2 id="inspector-title">Every link has a story.</h2><p class="inspector-description">Look up a short code to check its status and recorded GET resolutions.</p>
+          <form id="inspect-form"><label class="inspector-label" for="inspect-code">Short code</label><div class="inspect-input-row"><input id="inspect-code" type="text" name="code" placeholder="e.g. launch-notes" required autocomplete="off" spellcheck="false" pattern="[A-Za-z0-9_\-]+" maxlength="32" aria-describedby="inspect-hint"><button id="inspect-button" class="icon-button inspect-button" type="submit" aria-label="Inspect link" title="Inspect link"><svg class="icon"><use href="#i-arrow"/></svg></button></div><p class="field-hint" id="inspect-hint">Enter the code after the final slash.</p></form>
+          <div class="feedback error-feedback" id="inspect-error" role="alert" hidden></div>
+          <div class="analytics-metric" aria-live="polite" aria-atomic="true"><span class="metric-label">RECORDED GET RESOLUTIONS</span><strong id="redirect-count">—</strong><span id="metric-caption">Look up a link to load its activity</span></div>
+          <div class="last-activity"><span>Last accessed</span><strong id="last-accessed">No link selected</strong></div><p class="measurement-note" id="measurement-note">Recorded GET resolutions; repeats and bots included; best effort. HEAD requests are not counted.</p>
+          <button id="refresh-button" class="refresh-button" type="button" hidden>Refresh activity <span aria-hidden="true">↻</span></button>
+        </section>
+        <section class="credentials-card" aria-labelledby="credentials-title"><div class="credentials-heading"><svg class="icon"><use href="#i-lock"/></svg><h2 id="credentials-title">API access</h2><span class="small-badge">LOCAL</span></div><label for="api-key">X-API-Key</label><div class="key-input-row"><input id="api-key" type="password" value="local-demo-key" autocomplete="off" autocapitalize="none" spellcheck="false" aria-describedby="key-hint"><button id="toggle-key" type="button" aria-label="Show API key" aria-pressed="false">Show</button></div><p id="key-hint">The local demo key is prefilled. Change it if your server uses another key. Kept only in memory for this page.</p></section>
+      </div>
+    </div>
+    <section class="developer-notes" id="developer-notes" aria-labelledby="developer-title"><div class="notes-heading"><svg class="icon"><use href="#i-code"/></svg><h2 id="developer-title">Simple on the surface. Thoughtful underneath.</h2><span>API v1</span></div><div class="notes-grid"><div><span class="note-number">01</span><h3>Safe to retry</h3><p>Create requests carry an idempotency key. An unchanged retry after an error reuses the same key.</p></div><div><span class="note-number">02</span><h3>Control the lifecycle</h3><p>Choose an expiration or disable a link. The inspector lets you check a link’s current state.</p></div><div><span class="note-number">03</span><h3>Count what happened</h3><p>Analytics record GET resolutions, including repeats and bots. Counts are best effort, not confirmed destination visits.</p></div></div></section>
+    <footer class="page-footer"><span>Built with Spring Boot. Made to stay simple.</span><span>Local prototype · No deployment implied</span></footer>
+  </main>
+</div>
+<div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
+<noscript><div class="noscript-warning">Enable JavaScript to create links and use the API inspector.</div></noscript>
+</body>
+</html>

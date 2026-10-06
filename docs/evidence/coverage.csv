@@ -1,0 +1,23 @@
+GROUP,PACKAGE,CLASS,INSTRUCTION_MISSED,INSTRUCTION_COVERED,BRANCH_MISSED,BRANCH_COVERED,LINE_MISSED,LINE_COVERED,COMPLEXITY_MISSED,COMPLEXITY_COVERED,METHOD_MISSED,METHOD_COVERED
+LinkLedger,dev.linkledger.api,ApiException,0,10,0,0,0,4,0,2,0,2
+LinkLedger,dev.linkledger.api,LinkController,8,100,0,6,1,19,1,8,1,5
+LinkLedger,dev.linkledger.api,ApiErrorHandler,21,36,0,0,3,7,2,5,2,5
+LinkLedger,dev.linkledger.security,ApiAccessFilter,0,244,4,28,0,49,4,17,0,5
+LinkLedger,dev.linkledger.security,BufferedBodyRequest,10,19,0,0,1,5,1,2,1,2
+LinkLedger,dev.linkledger.security,BufferedBodyRequest.new ServletInputStream() {...},15,17,2,0,3,3,4,3,3,3
+LinkLedger,dev.linkledger.analytics,AnalyticsService,0,71,0,0,0,17,0,5,0,5
+LinkLedger,dev.linkledger.analytics,AnalyticsRepository,0,65,0,2,0,9,0,5,0,4
+LinkLedger,dev.linkledger.analytics,AnalyticsResponse,0,15,0,0,0,1,0,1,0,1
+LinkLedger,dev.linkledger.links,UrlPolicy,3,163,10,40,1,24,10,19,0,4
+LinkLedger,dev.linkledger.links,CodeGenerator,0,38,0,2,0,7,0,4,0,3
+LinkLedger,dev.linkledger.links,LinkService.CreateResult,0,9,0,0,0,1,0,1,0,1
+LinkLedger,dev.linkledger.links,AliasPolicy,0,75,0,6,0,6,0,7,0,4
+LinkLedger,dev.linkledger.links,LinkRepository,1,174,1,5,0,20,1,12,0,10
+LinkLedger,dev.linkledger.links,CreateLinkRequest,0,12,0,0,0,1,0,1,0,1
+LinkLedger,dev.linkledger.links,Link,0,35,0,6,0,4,0,5,0,2
+LinkLedger,dev.linkledger.links,LinkResponse,0,21,0,0,0,1,0,1,0,1
+LinkLedger,dev.linkledger.links,LinkRepository.IdempotencyRecord,0,9,0,0,0,1,0,1,0,1
+LinkLedger,dev.linkledger.links,LinkService,27,361,6,38,6,72,6,31,0,15
+LinkLedger,dev.linkledger.config,JsonLimits,0,23,0,0,0,3,0,4,0,4
+LinkLedger,dev.linkledger.config,AppProperties,23,45,12,8,1,8,10,1,0,1
+LinkLedger,dev.linkledger,LinkLedgerApplication,5,5,0,0,2,2,1,2,1,2

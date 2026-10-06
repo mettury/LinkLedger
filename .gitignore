@@ -1,0 +1,27 @@
+# Build outputs, local data and dependencies
+**/target/
+**/data/
+**/.tools/
+**/node_modules/
+**/__pycache__/
+.venv/
+/dist/
+*.jar
+*.class
+*.zip
+*.tar
+*.tar.gz
+*.mv.db
+*.trace.db
+*.py[cod]
+
+# Local credentials and generated logs
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.log
+!docs/evidence/*.log
+.DS_Store
+/MANIFEST.json

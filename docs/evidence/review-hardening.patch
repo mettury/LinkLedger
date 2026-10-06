@@ -1,0 +1,26 @@
+diff --git a/src/main/resources/application.yml b/src/main/resources/application.yml
+index ba25383..b2050b1 100644
+--- a/src/main/resources/application.yml
++++ b/src/main/resources/application.yml
+@@ -6,6 +6,7 @@ spring:
+   jackson:
+     deserialization:
+       fail-on-unknown-properties: true
++      fail-on-trailing-tokens: true
+   datasource:
+     hikari:
+       maximum-pool-size: 10
+diff --git a/src/test/java/dev/linkledger/api/ApiIntegrationTest.java b/src/test/java/dev/linkledger/api/ApiIntegrationTest.java
+index c2978e7..5febdd4 100644
+--- a/src/test/java/dev/linkledger/api/ApiIntegrationTest.java
++++ b/src/test/java/dev/linkledger/api/ApiIntegrationTest.java
+@@ -75,6 +75,9 @@ class ApiIntegrationTest {
+     void validatesMalformedUnknownFieldsAndPastExpiry() throws Exception {
+         for (String body : new String[]{"{", "{\"url\":\"javascript:alert(1)\"}",
+                 "{\"url\":\"https://example.com\",\"extra\":1}",
++                "{\"url\":\"https://example.com\"} {\"ignored\":true}",
++                "{\"url\":\"https://example.com\"} garbage",
++                "{\"url\":\"https://example.com\",\"expiresAt\":\"+1000000000-12-31T23:59:59.999999999Z\"}",
+                 "{\"url\":\"https://example.com\",\"expiresAt\":\"2020-01-01T00:00:00Z\"}"}) {
+             mvc.perform(post("/api/v1/urls").header("X-API-Key", "test-secret-key")
+                             .contentType("application/json").content(body)).andExpect(status().isBadRequest());

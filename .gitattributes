@@ -1,0 +1,5 @@
+# Preserve recorded evidence byte-for-byte; its spacing is part of the captured output.
+docs/evidence/** -text -whitespace
+# Preserve the Apache wrapper's Windows line endings.
+*.cmd -text whitespace=cr-at-eol
+mvnw text eol=lf

@@ -1,0 +1,29 @@
+name: Verify
+on:
+  push:
+  pull_request:
+permissions:
+  contents: read
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '21'
+          cache: maven
+      - name: Unit, HTTP, H2, PostgreSQL and style gates
+        run: ./mvnw --batch-mode -Ppostgres-tests verify
+      - name: Secret and unsafe-pattern checks
+        run: python3 scripts/security_check.py
+      - name: Upload test and coverage reports
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: verification-reports
+          path: |
+            target/surefire-reports
+            target/failsafe-reports
+            target/site/jacoco

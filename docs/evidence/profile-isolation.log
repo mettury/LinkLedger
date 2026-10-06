@@ -1,0 +1,2 @@
+PASS: effective postgres-tests profile discovers only PostgresIT, avoiding stale EmbeddedPostgresIT classes
+Docker-backed execution was not run; native PostgreSQL execution is separately recorded.

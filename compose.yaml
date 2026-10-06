@@ -1,0 +1,31 @@
+services:
+  db:
+    image: postgres:17.6
+    environment:
+      POSTGRES_DB: linkledger
+      POSTGRES_USER: linkledger
+      POSTGRES_PASSWORD: ${DATABASE_PASSWORD:?Copy .env.example to .env and choose a database password}
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U linkledger -d linkledger"]
+      interval: 5s
+      timeout: 3s
+      retries: 20
+  app:
+    build: .
+    ports:
+      - "127.0.0.1:8080:8080"
+    environment:
+      SPRING_PROFILES_ACTIVE: postgres
+      DATABASE_URL: jdbc:postgresql://db:5432/linkledger
+      DATABASE_USERNAME: linkledger
+      DATABASE_PASSWORD: ${DATABASE_PASSWORD:?Set DATABASE_PASSWORD}
+      APP_API_KEY: ${APP_API_KEY:?Set a private API key of at least 12 characters}
+      APP_BASE_URL: http://localhost:8080
+      SERVER_ADDRESS: 0.0.0.0
+    depends_on:
+      db:
+        condition: service_healthy
+volumes:
+  pgdata:

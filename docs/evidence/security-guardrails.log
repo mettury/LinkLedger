@@ -1,0 +1,2 @@
+PASS: narrow secret-pattern and forbidden execution/destination-fetch guardrails
+Scope: does not establish absence of vulnerabilities; review dependencies and deployment before release.

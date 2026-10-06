@@ -1,0 +1,8 @@
+spring:
+  datasource:
+    url: jdbc:h2:mem:linkledger-test;MODE=PostgreSQL;DATABASE_TO_LOWER=TRUE;DB_CLOSE_DELAY=-1
+    username: sa
+    password: ''
+app:
+  api-key: test-secret-key
+  create-limit-per-minute: 100000

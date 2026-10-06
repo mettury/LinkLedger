@@ -1,0 +1,239 @@
+openapi: 3.0.3
+info:
+  title: LinkLedger API
+  version: 1.0.0
+  description: >-
+    Single-tenant URL-shortener prototype. Management uses a shared API key.
+    Redirects are public. Analytics are best-effort recorded GET redirects,
+    not unique visitors or proof that the destination loaded. Requests are limited to 8192 bytes.
+servers:
+  - url: http://localhost:8080
+security:
+  - ApiKey: []
+paths:
+  /api/v1/urls:
+    post:
+      operationId: createLink
+      summary: Create an independent short link
+      description: >-
+        The same URL creates independent links unless an Idempotency-Key is reused.
+        Repeating the same key and canonical request returns the existing link; different request returns 409.
+        Keys and tombstones currently have no automatic retention cleanup.
+      parameters:
+        - in: header
+          name: Idempotency-Key
+          required: false
+          schema:
+            type: string
+            pattern: '^[A-Za-z0-9._:-]{1,128}$'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateLink'
+      responses:
+        '201':
+          description: Created
+          headers:
+            Location:
+              schema: {type: string}
+              description: Relative management-resource path
+            Idempotency-Replayed:
+              schema: {type: boolean}
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/Link'}
+        '200':
+          description: Idempotent replay; status reflects current expiry/disabled state
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/Link'}
+        '400': {$ref: '#/components/responses/BadRequest'}
+        '401': {$ref: '#/components/responses/Unauthorized'}
+        '409': {$ref: '#/components/responses/Conflict'}
+        '413': {$ref: '#/components/responses/TooLarge'}
+        '429':
+          description: Per-instance shared-key create limit exceeded
+          headers:
+            Retry-After:
+              schema: {type: integer, minimum: 1}
+              description: Seconds until the next fixed one-minute window
+          content:
+            application/problem+json:
+              schema: {$ref: '#/components/schemas/Problem'}
+        '503': {$ref: '#/components/responses/Unavailable'}
+  /api/v1/urls/{code}:
+    parameters:
+      - $ref: '#/components/parameters/Code'
+    get:
+      operationId: getLink
+      summary: Read link metadata, including expired or disabled links
+      responses:
+        '200':
+          description: Link metadata
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/Link'}
+        '401': {$ref: '#/components/responses/Unauthorized'}
+        '404': {$ref: '#/components/responses/NotFound'}
+        '503': {$ref: '#/components/responses/Unavailable'}
+    delete:
+      operationId: disableLink
+      summary: Disable a link without allowing code reuse
+      description: Repeated disable requests remain successful. No physical deletion occurs.
+      responses:
+        '204': {description: Disabled}
+        '401': {$ref: '#/components/responses/Unauthorized'}
+        '404': {$ref: '#/components/responses/NotFound'}
+        '503': {$ref: '#/components/responses/Unavailable'}
+  /api/v1/urls/{code}/analytics:
+    parameters:
+      - $ref: '#/components/parameters/Code'
+    get:
+      operationId: getAnalytics
+      summary: Read best-effort redirect count and latest recorded time
+      responses:
+        '200':
+          description: Includes repeated requests and bots; excludes HEAD, missing and inactive links
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/Analytics'}
+        '401': {$ref: '#/components/responses/Unauthorized'}
+        '404': {$ref: '#/components/responses/NotFound'}
+        '503': {$ref: '#/components/responses/Unavailable'}
+  /{code}:
+    parameters:
+      - $ref: '#/components/parameters/Code'
+    get:
+      security: []
+      operationId: redirect
+      summary: Redirect active links and attempt one atomic analytics increment
+      responses:
+        '302': {$ref: '#/components/responses/Redirect'}
+        '404': {$ref: '#/components/responses/NotFound'}
+        '410': {$ref: '#/components/responses/Gone'}
+        '503': {$ref: '#/components/responses/Unavailable'}
+    head:
+      security: []
+      operationId: inspectRedirect
+      summary: Same destination/status as GET, without incrementing analytics
+      responses:
+        '302': {$ref: '#/components/responses/Redirect'}
+        '404': {$ref: '#/components/responses/NotFound'}
+        '410': {$ref: '#/components/responses/Gone'}
+        '503': {$ref: '#/components/responses/Unavailable'}
+  /actuator/health:
+    get:
+      security: []
+      operationId: health
+      summary: Minimal application and database health
+      responses:
+        '200': {description: Healthy}
+        '503': {description: Unhealthy}
+components:
+  securitySchemes:
+    ApiKey:
+      type: apiKey
+      in: header
+      name: X-API-Key
+  parameters:
+    Code:
+      in: path
+      name: code
+      required: true
+      schema: {type: string, pattern: '^[A-Za-z0-9_-]{3,32}$'}
+  schemas:
+    CreateLink:
+      type: object
+      additionalProperties: false
+      required: [url]
+      properties:
+        url:
+          type: string
+          format: uri
+          maxLength: 4096
+          description: Absolute HTTP(S), no userinfo or whitespace; query and fragment are preserved. International hosts must use punycode.
+          example: https://example.com/products?id=42#details
+        customAlias:
+          type: string
+          nullable: true
+          pattern: '^[A-Za-z0-9_-]{3,32}$'
+          description: Case-sensitive. Reserved routes are rejected case-insensitively. Omit to generate a random code.
+        expiresAt:
+          type: string
+          format: date-time
+          nullable: true
+          description: Future instant through year 9999, stored at microsecond precision. Omit for no expiry.
+    Link:
+      type: object
+      required: [code, shortUrl, url, createdAt, status]
+      properties:
+        code: {type: string}
+        shortUrl: {type: string, format: uri}
+        url: {type: string, format: uri}
+        createdAt: {type: string, format: date-time}
+        expiresAt: {type: string, format: date-time, nullable: true}
+        status: {type: string, enum: [ACTIVE, EXPIRED, DISABLED]}
+    Analytics:
+      type: object
+      required: [code, totalRedirects, measurement]
+      properties:
+        code: {type: string}
+        totalRedirects: {type: integer, format: int64, minimum: 0}
+        lastAccessedAt: {type: string, format: date-time, nullable: true}
+        measurement: {type: string}
+    Problem:
+      type: object
+      required: [type, title, status, detail, requestId]
+      properties:
+        type: {type: string}
+        title: {type: string}
+        status: {type: integer}
+        detail: {type: string}
+        instance: {type: string}
+        requestId: {type: string, format: uuid}
+  responses:
+    BadRequest:
+      description: Invalid URL, alias, JSON, field lengths, key or expiration
+      content:
+        application/problem+json:
+          schema: {$ref: '#/components/schemas/Problem'}
+    Unauthorized:
+      description: Missing or wrong X-API-Key
+      content:
+        application/problem+json:
+          schema: {$ref: '#/components/schemas/Problem'}
+    NotFound:
+      description: Unknown link
+      content:
+        application/problem+json:
+          schema: {$ref: '#/components/schemas/Problem'}
+    Conflict:
+      description: Alias already used (including tombstones) or idempotency key reused with different request
+      content:
+        application/problem+json:
+          schema: {$ref: '#/components/schemas/Problem'}
+    TooLarge:
+      description: Request body exceeds 8192 bytes
+      content:
+        application/problem+json:
+          schema: {$ref: '#/components/schemas/Problem'}
+    Gone:
+      description: Link expired or disabled
+      content:
+        application/problem+json:
+          schema: {$ref: '#/components/schemas/Problem'}
+    Unavailable:
+      description: Authoritative storage unavailable or bounded code allocation exhausted
+      content:
+        application/problem+json:
+          schema: {$ref: '#/components/schemas/Problem'}
+    Redirect:
+      description: Active destination. Analytics failure after lookup does not change this response.
+      headers:
+        Location:
+          required: true
+          schema: {type: string, format: uri}
+        Cache-Control:
+          schema: {type: string, example: no-store}

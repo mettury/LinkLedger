@@ -1,0 +1,255 @@
+diff --git a/src/main/java/dev/linkledger/links/AliasPolicy.java b/src/main/java/dev/linkledger/links/AliasPolicy.java
+new file mode 100644
+index 0000000..4e2ecc5
+--- /dev/null
++++ b/src/main/java/dev/linkledger/links/AliasPolicy.java
+@@ -0,0 +1,24 @@
++package dev.linkledger.links;
++
++import dev.linkledger.api.ApiException;
++import java.util.Locale;
++import java.util.Set;
++import org.springframework.http.HttpStatus;
++import org.springframework.stereotype.Component;
++
++@Component
++public class AliasPolicy {
++    private static final Set<String> RESERVED = Set.of("api", "actuator", "error", "assets", "static",
++            "docs", "index", "favicon", "robots", "admin", "login");
++
++    public void validate(String alias) {
++        if (alias != null && (!alias.matches("[A-Za-z0-9_-]{3,32}") || isReserved(alias))) {
++            throw new ApiException(HttpStatus.BAD_REQUEST,
++                    "customAlias must contain 3-32 letters, digits, underscores or hyphens and cannot be a reserved route");
++        }
++    }
++
++    public boolean isReserved(String code) {
++        return RESERVED.contains(code.toLowerCase(Locale.ROOT));
++    }
++}
+diff --git a/src/main/java/dev/linkledger/links/LinkService.java b/src/main/java/dev/linkledger/links/LinkService.java
+index 7bdee0b..47160a1 100644
+--- a/src/main/java/dev/linkledger/links/LinkService.java
++++ b/src/main/java/dev/linkledger/links/LinkService.java
+@@ -19,20 +19,23 @@ import org.springframework.transaction.support.TransactionTemplate;
+ 
+ @Service
+ public class LinkService {
++    private static final Instant MAX_EXPIRY = Instant.parse("9999-12-31T23:59:59.999999Z");
+     private final LinkRepository repository;
+     private final UrlPolicy urlPolicy;
+     private final CodeGenerator codes;
+     private final AppProperties properties;
+     private final Clock clock;
++    private final AliasPolicy aliases;
+     private final TransactionTemplate transaction;
+ 
+     public LinkService(LinkRepository repository, UrlPolicy urlPolicy, CodeGenerator codes,
+-                       AppProperties properties, Clock clock, PlatformTransactionManager manager) {
++                       AppProperties properties, Clock clock, AliasPolicy aliases, PlatformTransactionManager manager) {
+         this.repository = repository;
+         this.urlPolicy = urlPolicy;
+         this.codes = codes;
+         this.properties = properties;
+         this.clock = clock;
++        this.aliases = aliases;
+         this.transaction = new TransactionTemplate(manager);
+         transaction.setPropagationBehavior(TransactionDefinition.PROPAGATION_REQUIRES_NEW);
+         transaction.setTimeout(3);
+@@ -40,9 +43,10 @@ public class LinkService {
+ 
+     public CreateResult create(CreateLinkRequest request, String idempotencyKey) {
+         String destination = urlPolicy.validate(request.url());
+-        if (request.customAlias() != null) {
+-            throw new ApiException(HttpStatus.BAD_REQUEST, "Custom aliases are not available in the baseline");
++        if (request.expiresAt() != null && request.expiresAt().isAfter(MAX_EXPIRY)) {
++            throw new ApiException(HttpStatus.BAD_REQUEST, "expiresAt must be no later than 9999-12-31T23:59:59.999999Z");
+         }
++        aliases.validate(request.customAlias());
+         String keyHash = validateKey(idempotencyKey);
+         String fingerprint = sha256(part(destination) + part(request.customAlias()) + part(request.expiresAt()));
+         if (keyHash != null) {
+@@ -57,7 +61,11 @@ public class LinkService {
+             throw new ApiException(HttpStatus.BAD_REQUEST, "expiresAt must be in the future");
+         }
+         for (int attempt = 0; attempt < 8; attempt++) {
+-            Link link = new Link(codes.generate(), destination, now, expiry, false);
++            String candidate = request.customAlias() == null ? codes.generate() : request.customAlias();
++            if (aliases.isReserved(candidate)) {
++                continue;
++            }
++            Link link = new Link(candidate, destination, now, expiry, false);
+             try {
+                 transaction.executeWithoutResult(status -> {
+                     repository.insert(link);
+@@ -77,6 +85,9 @@ public class LinkService {
+                 if (repository.find(link.code()).isEmpty()) {
+                     throw conflict;
+                 }
++                if (request.customAlias() != null) {
++                    throw new ApiException(HttpStatus.CONFLICT, "Custom alias is already used; disabled and expired codes are not reused");
++                }
+             }
+         }
+         throw new ApiException(HttpStatus.SERVICE_UNAVAILABLE, "Could not allocate a code; please retry");
+diff --git a/src/main/java/dev/linkledger/security/ApiAccessFilter.java b/src/main/java/dev/linkledger/security/ApiAccessFilter.java
+index 62bbb27..63b2d18 100644
+--- a/src/main/java/dev/linkledger/security/ApiAccessFilter.java
++++ b/src/main/java/dev/linkledger/security/ApiAccessFilter.java
+@@ -47,7 +47,7 @@ public class ApiAccessFilter extends OncePerRequestFilter {
+         response.setHeader("Cache-Control", "no-store");
+         String path = request.getServletPath();
+         boolean protectedPath = path.equals("/api") || path.startsWith("/api/")
+-                || (path.startsWith("/actuator") && !path.equals("/actuator/health"));
++                || ((path.equals("/actuator") || path.startsWith("/actuator/")) && !path.equals("/actuator/health"));
+         if (protectedPath && !authorized(request.getHeader("X-API-Key"))) {
+             response.setHeader("WWW-Authenticate", "ApiKey realm=\"LinkLedger\"");
+             error(response, 401, "Unauthorized", "A valid X-API-Key header is required", requestId);
+diff --git a/src/test/java/dev/linkledger/api/HttpSecurityTest.java b/src/test/java/dev/linkledger/api/HttpSecurityTest.java
+index 9b34817..16cadf7 100644
+--- a/src/test/java/dev/linkledger/api/HttpSecurityTest.java
++++ b/src/test/java/dev/linkledger/api/HttpSecurityTest.java
+@@ -57,6 +57,19 @@ class HttpSecurityTest {
+         assertThat(result.statusCode()).isEqualTo(201);
+     }
+ 
++    @Test
++    void actuatorPrefixedAliasRemainsPublic() throws Exception {
++        String alias = "actuatorPromo" + java.util.UUID.randomUUID().toString().substring(0, 8);
++        HttpResponse<String> created = client.send(HttpRequest.newBuilder(uri("/api/v1/urls"))
++                .header("X-API-Key", "test-secret-key").header("Content-Type", "application/json")
++                .POST(HttpRequest.BodyPublishers.ofString("{\"url\":\"https://example.com/public\",\"customAlias\":\"" + alias + "\"}"))
++                .build(), HttpResponse.BodyHandlers.ofString());
++        assertThat(created.statusCode()).isEqualTo(201);
++        HttpResponse<String> redirect = client.send(HttpRequest.newBuilder(uri("/" + alias)).GET().build(),
++                HttpResponse.BodyHandlers.ofString());
++        assertThat(redirect.statusCode()).isEqualTo(302);
++    }
++
+     private URI uri(String path) {
+         return URI.create("http://localhost:" + port + path);
+     }
+diff --git a/src/test/java/dev/linkledger/links/AliasTest.java b/src/test/java/dev/linkledger/links/AliasTest.java
+new file mode 100644
+index 0000000..a1522bd
+--- /dev/null
++++ b/src/test/java/dev/linkledger/links/AliasTest.java
+@@ -0,0 +1,75 @@
++package dev.linkledger.links;
++
++import dev.linkledger.api.ApiException;
++import java.util.List;
++import java.util.UUID;
++import java.util.concurrent.Callable;
++import java.util.concurrent.Executors;
++import java.util.stream.IntStream;
++import org.junit.jupiter.api.Test;
++import org.junit.jupiter.params.ParameterizedTest;
++import org.junit.jupiter.params.provider.ValueSource;
++import org.springframework.beans.factory.annotation.Autowired;
++import org.springframework.boot.test.context.SpringBootTest;
++import org.springframework.test.context.ActiveProfiles;
++import static org.assertj.core.api.Assertions.assertThat;
++import static org.assertj.core.api.Assertions.assertThatThrownBy;
++
++@SpringBootTest(properties = "spring.datasource.url=jdbc:h2:mem:aliases;MODE=PostgreSQL;DATABASE_TO_LOWER=TRUE;DB_CLOSE_DELAY=-1")
++@ActiveProfiles("test")
++class AliasTest {
++    @Autowired LinkService links;
++
++    @Test
++    void createsRequestedAliasAndPreservesRandomCreation() {
++        String alias = "launch-" + UUID.randomUUID().toString().substring(0, 8);
++        assertThat(links.create(new CreateLinkRequest("https://example.com/launch", alias, null), null).link().code())
++                .isEqualTo(alias);
++        assertThat(links.create(new CreateLinkRequest("https://example.com/random", null, null), null).link().code())
++                .matches("[A-Za-z0-9]{8}");
++    }
++
++    @ParameterizedTest
++    @ValueSource(strings = {"", "ab", "bad alias", "bad/alias", "Api", "ACTUATOR", "error", "a234567890123456789012345678901234"})
++    void rejectsInvalidAndReservedAliases(String alias) {
++        assertThatThrownBy(() -> links.create(new CreateLinkRequest("https://example.com", alias, null), null))
++                .isInstanceOf(ApiException.class)
++                .satisfies(error -> assertThat(((ApiException) error).status().value()).isEqualTo(400));
++    }
++
++    @Test
++    void tombstonesCannotBeReusedAndAliasesAreCaseSensitive() {
++        String alias = "campaign-" + UUID.randomUUID().toString().substring(0, 8);
++        links.create(new CreateLinkRequest("https://example.com/old", alias, null), null);
++        links.disable(alias);
++        assertThatThrownBy(() -> links.create(new CreateLinkRequest("https://example.com/new", alias, null), null))
++                .isInstanceOf(ApiException.class)
++                .satisfies(error -> assertThat(((ApiException) error).status().value()).isEqualTo(409));
++        assertThat(links.create(new CreateLinkRequest("https://example.com/case", alias.toUpperCase(java.util.Locale.ROOT), null), null)
++                .link().status()).isEqualTo("ACTIVE");
++    }
++
++    @Test
++    void concurrentAliasRequestsHaveOneWinner() throws Exception {
++        String alias = "race-" + UUID.randomUUID().toString().substring(0, 8);
++        List<Callable<Integer>> tasks = IntStream.range(0, 12).mapToObj(i -> (Callable<Integer>) () -> {
++            try {
++                links.create(new CreateLinkRequest("https://example.com/race/" + i, alias, null), null);
++                return 201;
++            } catch (ApiException conflict) {
++                return conflict.status().value();
++            }
++        }).toList();
++        int winners = 0;
++        try (var pool = Executors.newFixedThreadPool(6)) {
++            for (var future : pool.invokeAll(tasks)) {
++                int status = future.get();
++                assertThat(status).isIn(201, 409);
++                if (status == 201) {
++                    winners++;
++                }
++            }
++        }
++        assertThat(winners).isEqualTo(1);
++    }
++}
+diff --git a/src/test/java/dev/linkledger/links/CollisionTest.java b/src/test/java/dev/linkledger/links/CollisionTest.java
+new file mode 100644
+index 0000000..ef04e2b
+--- /dev/null
++++ b/src/test/java/dev/linkledger/links/CollisionTest.java
+@@ -0,0 +1,36 @@
++package dev.linkledger.links;
++
++import dev.linkledger.api.ApiException;
++import org.junit.jupiter.api.Test;
++import org.springframework.beans.factory.annotation.Autowired;
++import org.springframework.boot.test.context.SpringBootTest;
++import org.springframework.test.context.ActiveProfiles;
++import org.springframework.test.context.bean.override.mockito.MockitoBean;
++import static org.assertj.core.api.Assertions.assertThat;
++import static org.assertj.core.api.Assertions.assertThatThrownBy;
++import static org.mockito.Mockito.when;
++
++@SpringBootTest(properties = "spring.datasource.url=jdbc:h2:mem:collisions;MODE=PostgreSQL;DATABASE_TO_LOWER=TRUE;DB_CLOSE_DELAY=-1")
++@ActiveProfiles("test")
++class CollisionTest {
++    @Autowired LinkService links;
++    @MockitoBean CodeGenerator generator;
++
++    @Test
++    void retriesReservedAndCollidingCandidatesThenSucceeds() {
++        links.create(new CreateLinkRequest("https://example.com/existing", "taken123", null), null);
++        when(generator.generate()).thenReturn("actuator", "taken123", "fresh123");
++        assertThat(links.create(new CreateLinkRequest("https://example.com/new", null, null), null).link().code())
++                .isEqualTo("fresh123");
++    }
++
++    @Test
++    void boundedRetriesReturnServiceUnavailableWithoutOverwritingExistingLink() {
++        links.create(new CreateLinkRequest("https://example.com/original", "stuck123", null), null);
++        when(generator.generate()).thenReturn("stuck123");
++        assertThatThrownBy(() -> links.create(new CreateLinkRequest("https://example.com/not-written", null, null), null))
++                .isInstanceOf(ApiException.class)
++                .satisfies(error -> assertThat(((ApiException) error).status().value()).isEqualTo(503));
++        assertThat(links.find("stuck123").url()).isEqualTo("https://example.com/original");
++    }
++}
